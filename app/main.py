@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from .routers import debug
 from fastapi.middleware.cors import CORSMiddleware
 
 from .database import Base, engine
@@ -27,6 +28,7 @@ app.include_router(inventory.router)
 app.include_router(sales.router)
 app.include_router(bookings.router)
 app.include_router(ai.router)
+app.include_router(debug.router)
 
 @app.get("/")
 def root():
