@@ -2,10 +2,10 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 # -----------------------------------------------------------------------------
-# Product Schemas
+# PRODUCT SCHEMAS
 # -----------------------------------------------------------------------------
 
-class ProductBase(BaseModel):
+class ProductSchema(BaseModel):
     id: str
     name: str
     category: Optional[str]
@@ -19,7 +19,7 @@ class ProductBase(BaseModel):
         from_attributes = True   # replaces orm_mode
 
 
-class VariantBase(BaseModel):
+class VariantSchema(BaseModel):
     id: str
     product_id: str
     seller_id: Optional[str]
@@ -37,7 +37,7 @@ class VariantBase(BaseModel):
 
 
 # -----------------------------------------------------------------------------
-# Invoice Schemas
+# INVOICE SCHEMAS
 # -----------------------------------------------------------------------------
 
 class InvoiceItemCreate(BaseModel):
@@ -59,7 +59,7 @@ class InvoiceCreate(BaseModel):
 
 
 # -----------------------------------------------------------------------------
-# Response Schemas
+# RESPONSE SCHEMAS
 # -----------------------------------------------------------------------------
 
 class InvoiceResponse(BaseModel):
