@@ -1,30 +1,33 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from .database import Base, engine
 from .routers import inventory, sales, bookings, ai
 
-# Import all models to register them
-from . import models
-from fastapi.middleware.cors import CORSMiddleware
+# Create FastAPI application
+app = FastAPI(
+    title="Clothing AI Business Backend",
+    version="1.0.0"
+)
 
-origins = ["*"]  # allow all for now
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
+# CORS setup (allows frontend to connect)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],   # allow all for now
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="Clothing AI Business Backend")
-
+# Register routers
 app.include_router(inventory.router)
 app.include_router(sales.router)
+app.include_router(bookings.router)
 app.include_router(ai.router)
 
 @app.get("/")
 def root():
-    return {"message": "Clothing AI Business API is running!"}
-
+    return {"status": "running", "message": "Clothing AI Backend is live!"}
